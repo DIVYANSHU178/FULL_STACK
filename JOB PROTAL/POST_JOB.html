@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            background: url(job.png) no-repeat center fixed;
+            background-size: cover;
+        }
+        label {
+            display: block;
+            margin-bottom: 3px;
+            width: 70%;
+            margin: 0 auto 5px auto;
+            text-align: left;
+        }
+        input[type="text"], textarea {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #dbc7c7;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: rgb(244, 194, 194);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 70%;
+            margin: 0 auto;
+            display: block;
+        }
+        form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 45px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <form action="/submit-job" method="POST">
+        <h1>Post a Job</h1><br>
+        <label for="job-title">Job Title:</label>
+        <input type="text" id="job-title" name="job-title" required><br>
+
+        <label for="company-name">Company Name:</label>
+        <input type="text" id="company-name" name="company-name" required><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br>
+
+        <label for="job-description">Job Description:</label>
+        <textarea id="job-description" name="job-description" rows="5" cols="40" required></textarea><br>
+
+        <label for="Experience">Experience:</label>
+        <input type="text" id="Experience" name="Experience" required><br>
+
+        <input type="submit" value="Post Job">
+    </form>
+    
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const jobData = {
+                title: document.getElementById('job-title').value.trim(),
+                company: document.getElementById('company-name').value.trim(),
+                location: document.getElementById('location').value.trim(),
+                description: document.getElementById('job-description').value.trim(),
+                experience: document.getElementById('Experience').value.trim()
+            };
+            
+            let jobs = JSON.parse(localStorage.getItem('portalJobs')) || [];
+            jobs.unshift(jobData);  
+            localStorage.setItem('portalJobs', JSON.stringify(jobs));
+            
+            alert(`✅ Job "${jobData.title}" posted successfully at ${jobData.company}!`);
+            window.location.href = 'job_portal.html';
+        });
+
+        window.onload = function() {
+            document.querySelector('form').reset();
+        };
+    </script>
+</body>
+</html>
