@@ -1,0 +1,25 @@
+body{
+font-family: Arial;
+background:#dae68e;
+text-align:center;
+}
+
+.task-input{
+margin:20px;
+}
+
+input,select,button{
+padding:10px;
+margin:5px;
+}
+
+li{
+list-style:none;
+background:white;
+margin:10px auto;
+padding:10px;
+width:300px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
